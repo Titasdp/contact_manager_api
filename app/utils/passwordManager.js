@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const aut_password_generator = async () => {
   const password_Charset =
     "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGH1JKLMNOPQRSTUVWXYZ";
@@ -9,4 +10,22 @@ const aut_password_generator = async () => {
   return ramdom_pass;
 };
 
-module.exports = { aut_password_generator };
+const encrypt_password = async (password) => {
+  try {
+    salt_rounds = 5;
+    const salt = await bcrypt.genSalt(salt_rounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const decrypt_password = async (entered_password, hashed_password) => {
+  try {
+    const response = await bcrypt.compare(entered_password, hashed_password);
+    return response
+  } catch {}
+};
+
+module.exports = { aut_password_generator, decrypt_password, encrypt_password };

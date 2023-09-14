@@ -17,6 +17,7 @@ const database_connection_instance = new Sequelize(
     pool: {
       max: 5,
       min: 1,
+      idle: 10 * 100000000,
     },
   }
 );

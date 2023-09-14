@@ -1,10 +1,8 @@
-const sequelize = require("sequelize");
-
-const password_manager = require("../../utils/passwordManager");
-
-class User extends Model {}
-
-User.init(
+const { DataTypes } = require("sequelize");
+const connection_instance = require("../../utils/database/connectionInstance");
+const table_name = "User";
+const User = connection_instance.define(
+  `${table_name}`,
   {
     user_id: {
       type: DataTypes.STRING,
@@ -15,50 +13,35 @@ User.init(
     full_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: async function () {
-        return await password_manager.aut_password_generator();
-      },
-      set(value) {
-        // Storing passwords in plaintext in the database is terrible.
-        // Hashing the value with an appropriate cryptographic hash function is better.
-        this.setDataValue("password", hash(value));
-      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     locality: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     age: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
     },
-    created_at: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.fn("now"),
-      allowNull: false,
-    },
-    updated_at: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.fn("now"),
-      allowNull: false,
+    phone_numb: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
-    sequelize,
-    timestamps: true,
+    timestamps: false,
     createdAt: "created_at",
     updatedAt: "updated_at",
-    modelName: "Entity",
-    tableName: "Entity",
     logging: false,
   }
 );
+
+module.exports = User;

@@ -68,6 +68,22 @@ const register_validation_rules = () => {
   ];
 };
 
+const login_validaton_rules = () => {
+  return [
+    body("email")
+      .trim()
+      .exists()
+      .withMessage(
+        "The required field, email ,is empty, please check your input."
+      )
+      .isEmail()
+      .withMessage(
+        "Please check email you entered does not correspont to a valid email."
+      ),
+  ];
+};
+
 module.exports = {
   register_validation_rules,
+  login_validaton_rules,
 };

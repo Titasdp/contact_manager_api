@@ -1,8 +1,12 @@
-const payload_builder = (errors, process_result, message) => {
+const payload_builder = (errors, process_result, message, resp_code, error) => {
   return {
-    processErrors: errors,
-    process_result: process_result,
-    message: message,
+    error: error,
+    resp_code: resp_code,
+    datas: {
+      to_client_errors: errors,
+      process_result: process_result,
+      message: message,
+    },
   };
 };
 

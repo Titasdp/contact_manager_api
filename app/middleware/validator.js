@@ -12,11 +12,14 @@ const validate = (req, res, next) => {
     .array()
     .map((err) => extracted_errors.push({ error_message: err.msg }));
 
-  const payload = payload_manager.payload_builder(extracted_errors, {}, msg);
-
-  return res.status(422).json(
-    payload
+  const payload = payload_manager.payload_builder(
+    extracted_errors,
+    {},
+    "",
+    422,
+    null
   );
+  return res.status(payload.resp_code).json(payload.datas);
 };
 
 module.exports = {

@@ -1,27 +1,24 @@
-const sequelize = require("sequelize");
-const connection = require("./connectionInstance");
 const sequelize_error_handling = (error) => {
-  all_errors = error.errors;
+  let throw_exception = false;
+  let response_errors = [];
+  let all_errors = error.errors;
   all_errors.forEach((err) => {
-    console.error(JSON.parse(err.parrent));
+
+    if (err.type != "unique violation" && throw_exception == false) {
+      throw_exception = false;
+    } else {
+      response_errors.push({
+        message: `The ${err.path} you enter must be unique`,
+        error_type: err.type,
+        cause_error_field: err.path,
+      });
+    }
   });
 
-  console.log("stop here");
-  switch (error) {
-    case error instanceof sequelize.UniqueConstraintError:
-      break;
-
-    case error instanceof sequelize.ValidationError:
-      break;
-
-    case error instanceof sequelize.ForeignKeyConstraintError:
-      // Handle foreign key constraint errors
-      throw new Error(error);
-
-    default:
-      throw new Error(error);
-      break;
-  }
+  return {
+    throw_exception: throw_exception,
+    errors: response_errors,
+  };
 };
 
 module.exports = {

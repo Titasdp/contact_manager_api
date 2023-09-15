@@ -1,13 +1,13 @@
 const transporter = require("../email/transporterDefinition");
 
-const email_sender = async (sender, recipient, subject, text, body_html) => {
+const email_sender = async (sender, recipient, subject, body_html) => {
   const execution_result = {
     success: false,
     error_msg: "",
   };
   try {
-    const sender_execution_response = await transporter.sendMail({
-      from: `${sender}`,
+    await transporter.email_transporter.sendMail({
+      from: `desafio@frejen.pt`,
       to: `${recipient}`,
       subject: `${recipient}`,
       text: `${subject}`,
@@ -16,6 +16,7 @@ const email_sender = async (sender, recipient, subject, text, body_html) => {
 
     execution_result.success = true;
   } catch (error) {
+    console.log(error);
     execution_result.error_msg = error.message;
   } finally {
     return execution_result;

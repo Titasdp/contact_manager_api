@@ -35,6 +35,16 @@ const User = connection_instance.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    created_at: {
+      type: "TIMESTAMP",
+      defaultValue: connection_instance.fn("now"),
+      allowNull: false,
+    },
+    updated_at: {
+      type: "TIMESTAMP",
+      defaultValue:  connection_instance.fn("now"),
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

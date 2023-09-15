@@ -7,7 +7,6 @@ const router = Router();
 
 const register_user = async (req, res, next) => {
   try {
-    console.log("here");
     const response = await service.register_process(
       req.body.full_name,
       req.body.email,
@@ -15,7 +14,6 @@ const register_user = async (req, res, next) => {
       req.body.age,
       req.body.phone_numb
     );
-    console.log("hew ");
 
     res.status(201).json({ response });
   } catch (error) {

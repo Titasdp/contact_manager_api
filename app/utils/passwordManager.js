@@ -24,7 +24,7 @@ const encrypt_password = async (password) => {
 const decrypt_password = async (entered_password, hashed_password) => {
   try {
     const response = await bcrypt.compare(entered_password, hashed_password);
-    return response
+    return response;
   } catch {}
 };
 

@@ -8,7 +8,7 @@ const sequelize_error_handling = (error) => {
       throw_exception = false;
     } else {
       response_errors.push({
-        message: `The ${err.path} you enter must be unique`,
+        message: `${err.path} must be unique`,
         error_type: err.type,
         cause_error_field: err.path,
       });

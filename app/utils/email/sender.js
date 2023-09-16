@@ -16,7 +16,6 @@ const email_sender = async (sender, recipient, subject, body_html) => {
 
     execution_result.success = true;
   } catch (error) {
-    console.log(error);
     execution_result.error_msg = error.message;
   } finally {
     return execution_result;

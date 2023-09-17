@@ -7,7 +7,8 @@ const filds_sanitization_rules_get_user_contacts = () => {
 const filds_sanitization_rules_delete_contact = () => {
   return [
     param("user_id").escape().trim(),
-    param("contact_id").escape().trim(),
+    param("email").escape().trim(),
+    param("phone_numb").escape().trim(),
   ];
 };
 
@@ -18,7 +19,8 @@ const filds_sanitization_rules__mass_delete_contacts = () => {
 const filds_sanitization_rules_edit_contact = () => {
   return [
     param("user_id").escape().trim(),
-    param("contact_id").escape().trim(),
+    param("email").escape().trim(),
+    param("phone_numb").escape().trim(),
     body("full_name").escape().trim(),
     body("email").escape().trim(),
     body("locality").escape().trim(),
@@ -30,6 +32,7 @@ const filds_sanitization_rules_edit_contact = () => {
 const filds_sanitization_rules_create_contact = () => {
   return [
     param("user_id").escape().trim(),
+    body("phone_numb").escape().trim(),
     body("full_name").escape().trim(),
     body("email").escape().trim(),
     body("locality").escape().trim(),

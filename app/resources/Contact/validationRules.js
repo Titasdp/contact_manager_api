@@ -29,7 +29,7 @@ const get_user_contacts_rules = () => {
   ];
 };
 
-const delete_user_contacts_rules = () => {
+const delete_user_contact_rules = () => {
   return [
     param("user_id")
       .exists()
@@ -37,12 +37,27 @@ const delete_user_contacts_rules = () => {
       .notEmpty()
       .isString()
       .withMessage("User id in url params must be a string."),
-    param("contact_id")
+    param("email")
       .exists()
-      .withMessage("Contact Id missing in url params.")
-      .notEmpty()
-      .isString()
-      .withMessage("Contact Id  in url params must be a string."),
+      .withMessage("The required param email missing in url params.")
+      .trim()
+      .isEmail()
+      .withMessage("invalid param email send in url."),
+    param("phone_numb")
+      .exists()
+      .withMessage("The required param phone_numb missing in url params.")
+      .custom((value) => {
+        try {
+          const process_result = phone_Number_validator(value);
+          if (process_result.isValid()) {
+            return true;
+          } else {
+            throw new Error("Invalid Phone number in url param.");
+          }
+        } catch (error) {
+          throw new Error("Invalid Phone number in url param.");
+        }
+      }),
   ];
 };
 
@@ -54,13 +69,27 @@ const update_contact_rules = () => {
       .notEmpty()
       .isString()
       .withMessage("User id in url params must be a string."),
-    param("contact_id")
+    param("email")
       .exists()
-      .withMessage("Contact Id missing in url params.")
-      .notEmpty()
-      .isString()
-      .withMessage("Contact Id  in url params must be a string."),
-
+      .withMessage("The required param email missing in url params.")
+      .trim()
+      .isEmail()
+      .withMessage("invalid param email send in url."),
+    param("phone_numb")
+      .exists()
+      .withMessage("The required param phone_numb missing in url params.")
+      .custom((value) => {
+        try {
+          const process_result = phone_Number_validator(value);
+          if (process_result.isValid()) {
+            return true;
+          } else {
+            throw new Error("Invalid Phone number in url param.");
+          }
+        } catch (error) {
+          throw new Error("Invalid Phone number in url param.");
+        }
+      }),
     body("full_name")
       .exists()
       .withMessage(
@@ -90,25 +119,23 @@ const update_contact_rules = () => {
     body("address")
       .exists()
       .withMessage(
-        "The required field, locality, is empty, please check your input."
+        "The required field, Address, is empty, please check your input."
       )
       .trim()
       .not()
       .equals("")
       .withMessage(
-        "The required field, full name, is empty, please check your input."
+        "The required field, Address, is empty, please check your input."
       )
       .isString()
       .withMessage("the Field must be a String."),
     body("obs")
       .exists()
       .withMessage(
-        "The required field, age, is empty, please check your input."
+        "The required field, Obs, is empty, please check your input."
       )
-      .isInt({ min: 1 })
-      .withMessage(
-        "The required field, age, must be a positive integer number."
-      ),
+      .isString()
+      .withMessage("the Field obs must be a String."),
 
     body("email")
       .exists()
@@ -227,7 +254,7 @@ const create_contact_rules = () => {
 };
 
 module.exports = {
-  delete_user_contacts_rules,
+  delete_user_contact_rules,
   mass_delete_user_contacts_rules,
   get_user_contacts_rules,
   update_contact_rules,

@@ -17,7 +17,7 @@ const test_db_Connection = async () => {
 const define_table_relations = async () => {
   /**
    * The Following code lines are responsible for establishing relations between tables
-   */ 
+   */
   User_model.hasMany(Contact_model, {
     foreignKey: {
       name: "user_id",

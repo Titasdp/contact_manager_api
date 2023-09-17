@@ -29,7 +29,6 @@ const register_process = async (
     const password_hash = await password_manager.encrypt_password(
       generated_password
     );
-
     const inputs_array = [
       [
         id_generator.generate_random_id("user"),
@@ -41,8 +40,6 @@ const register_process = async (
         age,
       ],
     ];
-
-    console.log(generated_password);
     const result = await connection_instance
       .query(
         `INSERT INTO User (user_id,full_name,password,email,phone_numb,locality,age) VALUES ${inputs_array
@@ -86,7 +83,6 @@ const register_process = async (
 
     return result;
 
-  
     // const result = email_sender.email_sender(
     //   "tiagopina20014@gmail.com",
     //   "tiagopina20014.2@gmail.com",
@@ -146,6 +142,7 @@ const login_process = async (email, password) => {
               query_result[0][0].user_id,
               "5d"
             ),
+            user_id: query_result[0][0].user_id,
           },
           "The login process was a sucess...",
           200,
@@ -153,7 +150,6 @@ const login_process = async (email, password) => {
         );
       })
       .catch((error) => {
-        console.log(error);
         let return_data = null;
         return_data = payload_manager.payload_builder(
           {},
@@ -216,7 +212,6 @@ const get_user_data_by_id_service = async (user_id, send_password = true) => {
         );
       })
       .catch((error) => {
-        console.log(error);
         let return_data = null;
         return_data = payload_manager.payload_builder(
           {},
@@ -292,7 +287,6 @@ const patch_password_process = async (
         );
       })
       .catch((error) => {
-        console.log(error);
         let return_data = null;
         return_data = payload_manager.payload_builder(
           {},
@@ -350,7 +344,6 @@ const update_information_process = async (
         );
       })
       .catch((error) => {
-        console.log(error);
         let return_data = null;
         return_data = payload_manager.payload_builder(
           {},

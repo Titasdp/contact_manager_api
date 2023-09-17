@@ -27,7 +27,6 @@ const confirm_authentication = (req, res, next) => {
 
 const confirm_params_user_id_to_token_id = async (req, res, next) => {
   const bearer_token = req.headers.authorization;
-  console.log("herew");
 
   if (!bearer_token || !bearer_token.startsWith("Bearer ")) {
     const payload = payload_manager.payload_builder(
@@ -65,9 +64,8 @@ const confirm_params_user_id_to_token_id = async (req, res, next) => {
   next();
 };
 
-const somethingNew = async (req, res, next) => {
+const confirm_params_user_id_to_token_id_contact = async (req, res, next) => {
   const bearer_token = req.headers.authorization;
-  console.log("herew");
 
   if (!bearer_token || !bearer_token.startsWith("Bearer ")) {
     const payload = payload_manager.payload_builder(
@@ -93,6 +91,8 @@ const somethingNew = async (req, res, next) => {
     return res.status(payload.resp_code).json(payload.datas);
   }
 
+  console.log(req.params.user_id);
+
   if (req.params.user_id != access_token_validation.id) {
     const payload = payload_manager.payload_builder(
       {},
@@ -107,6 +107,6 @@ const somethingNew = async (req, res, next) => {
 
 module.exports = {
   confirm_authentication,
-  somethingNew,
+  confirm_params_user_id_to_token_id_contact,
   confirm_params_user_id_to_token_id,
 };

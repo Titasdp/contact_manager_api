@@ -13,7 +13,6 @@ const router = Router();
  * @param {*} next
  */
 const register_user = async (req, res) => {
-  console.log("here register");
   const service_response = await service.register_process(
     req.body.full_name,
     req.body.email,

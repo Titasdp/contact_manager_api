@@ -1,5 +1,5 @@
 const { body, param } = require("express-validator");
-const phone_Number_validator = require("libphonenumber-js");
+
 // Validation rules
 const filds_sanitazation_rules_register = () => {
   return [

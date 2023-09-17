@@ -41,9 +41,11 @@ const register_process = async (
         age,
       ],
     ];
+
+    console.log(generated_password);
     const result = await connection_instance
       .query(
-        `INSERT INTO Users (user_id,full_name,password,email,phone_numb,locality,age) VALUES ${inputs_array
+        `INSERT INTO User (user_id,full_name,password,email,phone_numb,locality,age) VALUES ${inputs_array
           .map((el) => "(?)")
           .join(",")};`,
         {
@@ -84,7 +86,7 @@ const register_process = async (
 
     return result;
 
-    // console.log(result);
+  
     // const result = email_sender.email_sender(
     //   "tiagopina20014@gmail.com",
     //   "tiagopina20014.2@gmail.com",
@@ -98,7 +100,7 @@ const register_process = async (
 
 const login_process = async (email, password) => {
   try {
-    const exec_query = `SELECT user_id,password FROM Users where email =:email`;
+    const exec_query = `SELECT user_id,password FROM User where email =:email`;
     const result = await connection_instance
       .query(
         exec_query,
@@ -181,9 +183,9 @@ const login_process = async (email, password) => {
 };
 
 const get_user_data_by_id_service = async (user_id, send_password = true) => {
-
-
-  const exec_query = send_password? `select full_name, password,email,locality,age from Users where user_id =:user_id`:`select full_name,email,locality,age from Users where user_id =:user_id`;
+  const exec_query = send_password
+    ? `select full_name, password,email,locality,age from User where user_id =:user_id`
+    : `select full_name,email,locality,age from User where user_id =:user_id`;
 
   try {
     const result = await connection_instance
@@ -272,7 +274,7 @@ const patch_password_process = async (
 
   try {
     const password_hash = await password_manager.encrypt_password(new_password);
-    const exec_query = `UPDATE Users SET Users.password =:password_hash  Where Users.user_id=:user_id`;
+    const exec_query = `UPDATE User SET User.password =:password_hash  Where User.user_id=:user_id`;
     const result = await connection_instance
       .query(
         exec_query,
@@ -321,7 +323,7 @@ const update_information_process = async (
   user_id
 ) => {
   try {
-    const exec_query = `UPDATE Users SET Users.full_name =:full_name,Users.locality =:locality, Users.age =:age,Users.phone_numb =:phone_numb , Users.updated_at =:updated_at Where Users.user_id=:user_id`;
+    const exec_query = `UPDATE User SET User.full_name =:full_name,User.locality =:locality, User.age =:age,User.phone_numb =:phone_numb , User.updated_at =:updated_at Where User.user_id=:user_id`;
     const result = await connection_instance
       .query(
         exec_query,

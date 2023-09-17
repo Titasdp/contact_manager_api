@@ -151,6 +151,12 @@ const get_user_info_rules = () => {
 
 const update_user_info_rules = () => {
   return [
+    param("id")
+      .exists()
+      .withMessage("Id missing in url params.")
+      .notEmpty()
+      .isString()
+      .withMessage("Id in url params must be a string."),
     body("full_name")
       .exists()
       .withMessage(

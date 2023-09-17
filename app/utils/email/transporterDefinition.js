@@ -3,7 +3,6 @@ const smtp_transport = require("nodemailer-smtp-transport");
 
 require("dotenv").config();
 
-console.log(process.env.NODEMAILER_HOST);
 
 const email_transporter = nodemailer.createTransport(
   smtp_transport({

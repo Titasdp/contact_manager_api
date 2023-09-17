@@ -1,38 +1,33 @@
 const { DataTypes } = require("sequelize");
 const connection_instance = require("../../utils/database/connectionInstance");
-const table_name = "User";
-const User = connection_instance.define(
+const table_name = "Contact";
+const Contact = connection_instance.define(
   `${table_name}`,
   {
-    user_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-    },
     full_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      primaryKey: true,
+    },
+    phone_numb: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     locality: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    age: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false,
-    },
-    phone_numb: {
-      type: DataTypes.STRING,
+    obs: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     created_at: {
@@ -55,5 +50,4 @@ const User = connection_instance.define(
     modelName: table_name,
   }
 );
-
-module.exports = User;
+module.exports = Contact;

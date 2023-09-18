@@ -4,7 +4,7 @@ const Contact = require("./model");
 const error_handling = require("../../utils/database/sequelizeErrorHandling");
 
 const get_user_data_by_id_service = async (user_id) => {
-  const exec_query = `select email,phone_numb, address, locality,obs from Contact where user_id =:user_id`;
+  const exec_query = `select email,phone_numb, address, locality,obs, full_name from Contact where user_id =:user_id`;
   try {
     const result = await connection_instance
       .query(

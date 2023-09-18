@@ -7,7 +7,6 @@ const payload_manager = require("../../utils/payloadManager");
 const User = require("./model");
 const error_handling = require("../../utils/database/sequelizeErrorHandling");
 const token_manager = require("../../utils/tokenManager");
-
 /**
  * register service
  * @param {String} full_name Name of the person
@@ -29,6 +28,8 @@ const register_process = async (
     const password_hash = await password_manager.encrypt_password(
       generated_password
     );
+
+
     const inputs_array = [
       [
         id_generator.generate_random_id("user"),
@@ -52,7 +53,12 @@ const register_process = async (
           model: User,
         }
       )
-      .then((query_result) => {
+      .then( async (query_result) => {
+
+
+        const send_email_result =  await email_sender.email_sender(
+          email, "Generated Password",`The password that was generated for you is ${generated_password} , please alter if when you have the chance.`
+          );
         return payload_manager.payload_builder(
           {},
           "The account has been created successfully, we have send you an email with the generated password.",
@@ -83,12 +89,7 @@ const register_process = async (
 
     return result;
 
-    // const result = email_sender.email_sender(
-    //   "tiagopina20014@gmail.com",
-    //   "tiagopina20014.2@gmail.com",
-    //   "something good",
-    //   "<div>testing</div>"
-    // );
+
   } catch (error) {
     return payload_manager.payload_builder(null, {}, 500, error);
   }
@@ -180,8 +181,8 @@ const login_process = async (email, password) => {
 
 const get_user_data_by_id_service = async (user_id, send_password = true) => {
   const exec_query = send_password
-    ? `select full_name, password,email,locality,age from User where user_id =:user_id`
-    : `select full_name,email,locality,age from User where user_id =:user_id`;
+    ? `select full_name,password_generated, password,email,locality,age,phone_numb from User where user_id =:user_id`
+    : `select full_name,password_generated,email,locality,age ,phone_numb from User where user_id =:user_id`;
 
   try {
     const result = await connection_instance
@@ -269,7 +270,7 @@ const patch_password_process = async (
 
   try {
     const password_hash = await password_manager.encrypt_password(new_password);
-    const exec_query = `UPDATE User SET User.password =:password_hash  Where User.user_id=:user_id`;
+    const exec_query = `UPDATE User SET User.password =:password_hash ,  User.password_generated=0  Where User.user_id=:user_id`;
     const result = await connection_instance
       .query(
         exec_query,

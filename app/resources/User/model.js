@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, INTEGER } = require("sequelize");
 const connection_instance = require("../../utils/database/connectionInstance");
 const table_name = "User";
 const User = connection_instance.define(
@@ -34,6 +34,12 @@ const User = connection_instance.define(
     phone_numb: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+
+    password_generated: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
     },
     created_at: {
       type: "TIMESTAMP",

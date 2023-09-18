@@ -103,33 +103,5 @@ router.put(
   update_user_contact
 );
 
-// //password
-// router.patch(
-//   "/:id/password",
-//   validation_rules.change_user_password_rules(),
-//   validator_middlware.validate,
-//   sanitization_rules.filds_sanitazation_rules_alter_password(),
-//   authenticated_middlware.confirm_params_user_id_to_token_id,
-//   patch_user_password
-// );
-
-// //password
-// router.put(
-//   "/:id/information",
-//   validation_rules.update_user_info_rules(),
-//   validator_middlware.validate,
-//   sanitization_rules.filds_sanitazation_rules_update_user_info(),
-//   authenticated_middlware.confirm_params_user_id_to_token_id,
-//   update_user_info
-// );
-
-// router.get(
-//   "/:id",
-//   validation_rules.get_user_info_rules(),
-//   validator_middlware.validate,
-//   sanitization_rules.filds_sanitazation_rules_get_user_data(),
-//   authenticated_middlware.confirm_params_user_id_to_token_id,
-//   get_user_data
-// );
 
 module.exports = router;

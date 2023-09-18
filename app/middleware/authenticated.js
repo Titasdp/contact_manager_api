@@ -67,6 +67,8 @@ const confirm_params_user_id_to_token_id = async (req, res, next) => {
 const confirm_params_user_id_to_token_id_contact = async (req, res, next) => {
   const bearer_token = req.headers.authorization;
 
+  console.log(bearer_token)
+
   if (!bearer_token || !bearer_token.startsWith("Bearer ")) {
     const payload = payload_manager.payload_builder(
       {},
@@ -90,8 +92,6 @@ const confirm_params_user_id_to_token_id_contact = async (req, res, next) => {
     );
     return res.status(payload.resp_code).json(payload.datas);
   }
-
-  console.log(req.params.user_id);
 
   if (req.params.user_id != access_token_validation.id) {
     const payload = payload_manager.payload_builder(

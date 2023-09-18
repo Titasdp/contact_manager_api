@@ -253,6 +253,8 @@ const create_contact_rules = () => {
   ];
 };
 
+
+
 module.exports = {
   delete_user_contact_rules,
   mass_delete_user_contacts_rules,

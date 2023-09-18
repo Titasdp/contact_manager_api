@@ -67,7 +67,6 @@ const confirm_params_user_id_to_token_id = async (req, res, next) => {
 const confirm_params_user_id_to_token_id_contact = async (req, res, next) => {
   const bearer_token = req.headers.authorization;
 
-  console.log(bearer_token)
 
   if (!bearer_token || !bearer_token.startsWith("Bearer ")) {
     const payload = payload_manager.payload_builder(

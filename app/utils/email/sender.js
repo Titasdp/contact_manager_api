@@ -26,8 +26,6 @@ const email_sender = async ( recipient, subject, message) => {
 
 
  const result =    await transporter.email_transporter.sendMail(options)
- console.log(result)
-
     execution_result.success = true;
   } catch (error) {
 

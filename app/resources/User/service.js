@@ -109,12 +109,12 @@ const login_process = async (email, password) => {
       .then(async (query_result) => {
         if (!query_result[0].length) {
           return payload_manager.payload_builder(
-            {
+            [{
               message: "There is no user register with those credencials...",
               error_type: "Wrong Credencials",
               cause_error_field: "password or email",
-            },
-            {},
+            }],
+            "There is no user register with those credencials...",
             404,
             null
           );
@@ -127,12 +127,12 @@ const login_process = async (email, password) => {
 
         if (!valid_password)
           return payload_manager.payload_builder(
-            {
+            [{
               message: "There is no user register with those credencials...",
               error_type: "Wrong Credencials",
               cause_error_field: "password or email",
-            },
-            {},
+            }],
+            "There is no user register with those credencials...",
             404,
             null
           );

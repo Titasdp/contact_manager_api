@@ -6,15 +6,14 @@ require("dotenv").config();
 
 const email_transporter = nodemailer.createTransport(
   smtp_transport({
-    host: "mail.frejen.pt",
-    port: 465,
+    host: `${process.env.NODEMAILER_HOST}`,
+    port:  `${process.env.NODEMAILER_PORT}`,
     secureConnection: true,
     auth: {
-      user: "desafio@frejen.pt",
-      pass: "h1qlsYjnnA9",
+      user: `${process.env.NODEMAILER_USERNAME}`,
+      pass: `${process.env.NODEMAILER_PASSWORD}`
     },
     tls: {
-      // h1qlsYjnnA9
       rejectUnauthorized: false
     },
   })

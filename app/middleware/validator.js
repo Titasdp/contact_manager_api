@@ -4,6 +4,7 @@ const payload_manager = require("../utils/payloadManager");
 const validate = (req, res, next) => {
   const errors = validationResult(req);
 
+
   const msg = "Inputs validation error";
   if (errors.isEmpty()) {
     return next();

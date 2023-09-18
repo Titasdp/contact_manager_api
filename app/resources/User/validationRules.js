@@ -113,7 +113,6 @@ const change_user_password_rules = () => {
       .withMessage("Password cannot contain white space")
       .isLength({ min: 10 })
       .withMessage("Password must be at least 10 characters long"),
-    //
     body("password_confirmation")
       .isString()
       .withMessage("The required field,full name is must be a string.")
@@ -126,15 +125,11 @@ const change_user_password_rules = () => {
       .withMessage("Password cannot contain white space")
       .isLength({ min: 10 })
       .withMessage("Password must be at least 10 characters long"),
-    //
     body("old_password")
       .exists()
       .withMessage(
-        "The required field, New password ,is empty, please check your input."
+        "The required field, Old password ,is empty, please check your input."
       )
-      .isString()
-      .withMessage("The required field, Old Password, must be a string.")
-      .trim(),
   ];
 };
 
@@ -150,6 +145,8 @@ const get_user_info_rules = () => {
 };
 
 const update_user_info_rules = () => {
+
+
   return [
     param("id")
       .exists()

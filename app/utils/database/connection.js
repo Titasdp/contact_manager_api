@@ -27,7 +27,7 @@ const define_table_relations = async () => {
     },
   });
 
-  Contact_model.hasMany(User_model, {
+  Contact_model.belongsTo(User_model, {
     foreignKey: {
       name: "user_id",
       allowNull: false,

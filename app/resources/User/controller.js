@@ -36,10 +36,8 @@ const login_user = async (req, res) => {
     req.body.password
   );
 
-
   res.status(service_response.resp_code).json(service_response.datas);
-  if (service_response.resp_code === 500)
-    throw new Error(service_response.error);
+  if (service_response.resp_code === 500) throw new Error(service_response);
 };
 
 /**
@@ -62,9 +60,6 @@ const patch_user_password = async (req, res) => {
       service_response.datas.process_result.user.password
     );
   }
-
-
-
 
   res.status(service_response.resp_code).json(service_response.datas);
   if (service_response.resp_code === 500)

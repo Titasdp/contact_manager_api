@@ -29,7 +29,6 @@ const register_process = async (
       generated_password
     );
 
-
     const inputs_array = [
       [
         id_generator.generate_random_id("user"),
@@ -53,12 +52,12 @@ const register_process = async (
           model: User,
         }
       )
-      .then( async (query_result) => {
-
-
-        const send_email_result =  await email_sender.email_sender(
-          email, "Generated Password",`The password that was generated for you is ${generated_password} , please alter if when you have the chance.`
-          );
+      .then(async (query_result) => {
+        const send_email_result = await email_sender.email_sender(
+          email,
+          "Generated Password",
+          `The password that was generated for you is ${generated_password} , please alter if when you have the chance.`
+        );
         return payload_manager.payload_builder(
           {},
           "The account has been created successfully, we have send you an email with the generated password.",
@@ -88,8 +87,6 @@ const register_process = async (
       });
 
     return result;
-
-
   } catch (error) {
     return payload_manager.payload_builder(null, {}, 500, error);
   }
@@ -109,11 +106,13 @@ const login_process = async (email, password) => {
       .then(async (query_result) => {
         if (!query_result[0].length) {
           return payload_manager.payload_builder(
-            [{
-              message: "There is no user register with those credencials...",
-              error_type: "Wrong Credencials",
-              cause_error_field: "password or email",
-            }],
+            [
+              {
+                message: "There is no user register with those credencials...",
+                error_type: "Wrong Credencials",
+                cause_error_field: "password or email",
+              },
+            ],
             "There is no user register with those credencials...",
             404,
             null
@@ -127,11 +126,13 @@ const login_process = async (email, password) => {
 
         if (!valid_password)
           return payload_manager.payload_builder(
-            [{
-              message: "There is no user register with those credencials...",
-              error_type: "Wrong Credencials",
-              cause_error_field: "password or email",
-            }],
+            [
+              {
+                message: "There is no user register with those credencials...",
+                error_type: "Wrong Credencials",
+                cause_error_field: "password or email",
+              },
+            ],
             "There is no user register with those credencials...",
             404,
             null
@@ -244,12 +245,14 @@ const patch_password_process = async (
 ) => {
   if (new_password !== password_confirmation) {
     return payload_manager.payload_builder(
-      {
-        message:
-          "The new password and the confirmation password input does not match.",
-        error_type: "Bad input",
-        cause_error_field: "Password or confirmation Password",
-      },
+      [
+        {
+          message:
+            "The new password and the confirmation password input does not match.",
+          error_type: "Bad input",
+          cause_error_field: "Password or confirmation Password",
+        },
+      ],
       "",
       422,
       null
@@ -262,7 +265,13 @@ const patch_password_process = async (
 
   if (!valid_password)
     return payload_manager.payload_builder(
-      {},
+      [
+        {
+          message: "Current password is wrong, please try again.",
+          error_type: "Wrong Credencials",
+          cause_error_field: "password or email",
+        },
+      ],
       "Current password is wrong, please try again.",
       404,
       null

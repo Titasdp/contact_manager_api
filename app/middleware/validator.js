@@ -12,7 +12,7 @@ const validate = (req, res, next) => {
   const extracted_errors = [];
   errors.array().map((err) =>
     extracted_errors.push({
-      error_message: err.msg,
+      message: err.msg,
       error_type: "Bad input",
       cause_error_field: err.path,
     })

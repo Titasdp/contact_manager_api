@@ -37,6 +37,7 @@ const login_user = async (req, res) => {
   );
 
   res.status(service_response.resp_code).json(service_response.datas);
+  console.log(service_response);
   if (service_response.resp_code === 500) throw new Error(service_response);
 };
 

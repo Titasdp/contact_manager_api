@@ -56,7 +56,7 @@ const register_process = async (
         const send_email_result = await email_sender.email_sender(
           email,
           "Generated Password",
-          `The password that was generated for you is ${generated_password} , please alter if when you have the chance.`
+          `Here is the generated password for you: ${generated_password}. Please make sure to change it at your earliest convenience`
         );
         return payload_manager.payload_builder(
           {},
